@@ -13,8 +13,8 @@ class Signin extends Component {
             error: "",
             redirectToReferer: false,
             loading: false
-        }
-    }
+        };
+    };
 
     handleChange = (name) => (event) => {
         this.setState({error: ""});
