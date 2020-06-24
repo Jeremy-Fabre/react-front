@@ -121,7 +121,7 @@ class SinglePost extends Component {
                     <div className="d-inline-block">
                         <Link
                             to={`/`}
-                            className="btn btn-raised btn-primary btn-sm mr-5">Back to Post
+                            className="btn btn-raised btn-primary btn-sm mr-5">Back to Posts
                         </Link>
 
                         {isAuthenticated().user && isAuthenticated().user._id === post.postedBy._id && (
@@ -135,6 +135,8 @@ class SinglePost extends Component {
                             className="btn btn-raised btn-danger">
                             Delete Post
                         </button>
+                        </>
+                        )}
 
                         <div>
                             {isAuthenticated().user &&
@@ -161,8 +163,6 @@ class SinglePost extends Component {
                                     </div>
                                 )}
                             </div>
-                        </>
-                        )}
                     </div>
                 </div>
         )
