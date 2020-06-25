@@ -44,7 +44,7 @@ class Signup extends Component {
     signupForm = (name, email, password) => (
         <form>
             <div className="form-group">
-                <label className="text-muted">Name</label>
+                <label className="text-muted">Nickname</label>
                 <input onChange={this.handleChange("name")} type="text" className="form-control"
                     value={name} />
             </div>

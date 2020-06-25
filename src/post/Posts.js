@@ -22,16 +22,6 @@ class Posts extends Component {
         });
     };
 
-    // componentDidMount() {
-    //     list().then(data => {
-    //         if(data.error) {
-    //             console.log(data.error)
-    //         } else {
-    //             this.setState({posts: data})
-    //         }
-    //     })
-    // }
-
     componentDidMount() {
         this.loadPosts(this.state.page);
     }
@@ -87,30 +77,30 @@ class Posts extends Component {
         
 
     render() {
-        const {posts, page} = this.state
+        const {posts, page} = this.state;
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">{!posts.length ? 'Loading' : "Recent Posts"}</h2>
+                <h2 className="mt-5 mb-5">{!posts.length ? 'Loading' : "Recents Posts"}</h2>
 
                 {this.renderPosts(posts)}
 
                 {page > 1 ? (
                     <button
-                        className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
+                        className="btn btn-raised btn-success mr-5 mt-5 mb-5"
                         onClick={() => this.loadLess(1)}
                     >
-                        Previous ({this.state.page - 1})
+                        Previous
                     </button>
                 ) : (
                     ""
                 )}
- 
-                {posts.length ? (
+
+                {posts.length === 6 ? (
                     <button
                         className="btn btn-raised btn-success mt-5 mb-5"
                         onClick={() => this.loadMore(1)}
                     >
-                        Next ({page + 1})
+                        Next
                     </button>
                 ) : (
                     ""

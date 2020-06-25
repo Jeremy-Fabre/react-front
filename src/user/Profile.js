@@ -20,7 +20,7 @@ class Profile extends Component {
         };
     };
 
-    // Chew Follow
+    // Check Follow
 
     checkFollow = user => {
         const jwt = isAuthenticated();

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import {signin, authenticate} from '../auth';
-//import SocialLogin from "./SocialLogin";
+import {signin, authenticate, isAuthenticated} from '../auth';
 
 class Signin extends Component {
 
     constructor() {
         super()
         this.state = {
+            id: "",
+            user: "",
             email: "",
             password: "",
             error: "",
@@ -61,18 +62,14 @@ class Signin extends Component {
     )
 
     render() {
-        const {email, password, error, redirectToReferer, loading} = this.state;
+        const {user, email, password, error, redirectToReferer, loading} = this.state;
 
         if(redirectToReferer) {
-            return <Redirect to="/" />
+            return <Redirect to={`/user/${isAuthenticated().user._id}`} />
         }
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">Sign In</h2>
-
-                {/* <hr />
-                    <SocialLogin />
-                <hr /> */}
 
                 <div className="alert alert-danger" style={{display: error ? "" : "none"}}>
                     {error}
