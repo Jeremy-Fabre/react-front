@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { list } from "./apiUser";
 import DefaultProfile from '../images/avatar.png';
 
@@ -25,7 +25,7 @@ class Users extends Component {
         <div className="row">
             {users.map((user, i) =>
                 (
-                    <div className="card col-md-4" key={i}>
+                    <div className="card col-md-4 p-2" key={i}>
                         <img 
                             style={{height: "200px", width: "auto", objectFit: "cover"}}
                             className="img-thumbnail"

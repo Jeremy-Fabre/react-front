@@ -30,7 +30,6 @@ class Signin extends Component {
             email,
             password
         };
-        console.log(user);
         signin(user)
             .then(data => {
                 if(data.error) {
@@ -62,7 +61,7 @@ class Signin extends Component {
     )
 
     render() {
-        const {user, email, password, error, redirectToReferer, loading} = this.state;
+        const {email, password, error, redirectToReferer, loading} = this.state;
 
         if(redirectToReferer) {
             return <Redirect to={`/user/${isAuthenticated().user._id}`} />

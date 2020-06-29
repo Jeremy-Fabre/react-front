@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import { findPeople, follow } from "./apiUser";
+import { Link } from 'react-router-dom';
+import { myFollowing } from "./apiUser";
 import DefaultProfile from '../images/avatar.png';
-import {isAuthenticated} from '../auth';
+import { isAuthenticated } from '../auth';
 
-class FindPeople extends Component {
+class MyFollowing extends Component {
     constructor() {
         super()
         this.state = {
@@ -18,7 +18,7 @@ class FindPeople extends Component {
         const userId = isAuthenticated().user._id;
         const token = isAuthenticated().token;
 
-        findPeople(userId, token).then(data => {
+        myFollowing(userId, token).then(data => {
             if(data.error) {
                 console.log(data.error)
             } else {
@@ -27,32 +27,12 @@ class FindPeople extends Component {
         })
     }
 
-    clickFollow = (user, i) => {
-        const userId = isAuthenticated().user._id;
-        const token = isAuthenticated().token;
+    renderUsers = (users) => {
 
-        follow(userId, token, user._id)
-        .then(data => {
-            if(data.error){
-                this.setState({error: data.error})
-            } else {
-                let toFollow = this.state.users;
-                toFollow.splice(i, 1)
-                this.setState({
-                    users: toFollow,
-                    open: true,
-                    followMessage: `Following ${user.name}`
-                })
-            }
-            
-        })
-    }
-
-    renderUsers = (users) => (
-        <div className="row">
+        return (<div className="row">
             {users.map((user, i) =>
                 (
-                    <div className="card col-md-4" key={i}>
+                    <div className="card col-md-4 p-2" key={i}>
                         <img 
                             style={{height: "200px", width: "auto", objectFit: "cover"}}
                             className="img-thumbnail"
@@ -67,24 +47,24 @@ class FindPeople extends Component {
                                 to={`/user/${user._id}`}
                                 className="btn btn-raised btn-primary  btn-sm">View Profile
                             </Link>
-                            <button 
-                                onClick={() => this.clickFollow(user, i)}
+                            <Link 
+                                to={`/user/${user._id}`}
                                 className="btn btn-raised btn-info float-right btn-sm">
-                                    Follow
-                            </button> 
+                                    Send Message
+                            </Link> 
                         </div>
-                        
                     </div>
                 )
             )}
-        </div>
-    )
+        </div>)
+    }
 
     render() {
         const {users, open, followMessage} = this.state
+        
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">Find People</h2>
+                <h2 className="mt-5 mb-5">Following People</h2>
 
                 {open && (
                     <div className="alert alert-success">
@@ -98,4 +78,4 @@ class FindPeople extends Component {
     }
 }
 
-export default FindPeople;
+export default MyFollowing;

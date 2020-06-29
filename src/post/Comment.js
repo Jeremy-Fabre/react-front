@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {comment, uncomment} from './apiPost';
-import {isAuthenticated} from '../auth';
-import {Link} from 'react-router-dom';
+import { comment, uncomment } from './apiPost';
+import { isAuthenticated } from '../auth';
+import { Link } from 'react-router-dom';
 import DefaultProfile from '../images/avatar.png';
 
 class Comment extends Component {
@@ -132,6 +132,20 @@ class Comment extends Component {
 
                                             <span>
                                             {isAuthenticated().user && isAuthenticated().user._id === comment.postedBy._id && (
+                                            <>
+                                                <span
+                                                    onClick={() => {
+                                                        this.deleteConfirmed(comment);
+                                                    }}
+                                                    style={{cursor: "pointer"}}
+                                                    className="text-danger float-right mr-1">
+                                                    Remove
+                                                </span>
+                                            </>
+                                            )}
+                                            </span>
+                                            <span>
+                                            {isAuthenticated().user && isAuthenticated().user.role === "admin" && (
                                             <>
                                                 <span
                                                     onClick={() => {

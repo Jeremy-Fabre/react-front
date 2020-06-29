@@ -14,7 +14,7 @@ class ProfileTabs extends Component {
                         {followers.map((person, i) => 
                             (
                             <div key={i}>
-                                    <Link to={`/user/${person._id}`}>
+                                    <Link to={`/user/${person._id}`} >
                                         <img
                                             style={{
                                                 borderRadius: "50%",

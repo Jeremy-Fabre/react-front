@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {singlePost, remove, like, unlike} from './apiPost';
-import {Link, Redirect} from 'react-router-dom';
-import DefaultPost from '../images/beach.jpg';
-import {isAuthenticated} from '../auth';
+import { singlePost, remove, like, unlike } from './apiPost';
+import { Link, Redirect } from 'react-router-dom';
+import DefaultPost from '../images/imageLambda.jpg';
+import { isAuthenticated } from '../auth';
 import Comment from './Comment';
 
 class SinglePost extends Component {
@@ -132,7 +132,7 @@ class SinglePost extends Component {
                         </Link>
                         <button
                             onClick={this.deleteConfirmed}
-                            className="btn btn-raised btn-danger">
+                            className="btn btn-raised btn-danger btn-sm mr-5">
                             Delete Post
                         </button>
                         </>
@@ -155,7 +155,7 @@ class SinglePost extends Component {
                                             </Link>
                                             <button
                                                 onClick={this.deleteConfirmed}
-                                                className="btn btn-raised btn-danger"
+                                                className="btn btn-raised btn-danger btn-sm mr-5"
                                             >
                                                 Delete Post
                                             </button>

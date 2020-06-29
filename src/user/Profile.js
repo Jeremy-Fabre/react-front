@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import {isAuthenticated} from '../auth';
-import {Redirect, Link} from 'react-router-dom';
-import {read} from "./apiUser";
+import { isAuthenticated } from '../auth';
+import { Redirect, Link } from 'react-router-dom';
+import { read } from "./apiUser";
 import DefaultProfile from '../images/avatar.png';
 import DeleteUser from './DeleteUser';
 import FollowProfileButton from './FollowProfileButton';
 import ProfileTabs from './ProfileTabs';
-import {listByUser} from '../post/apiPost';
+import NewMessage from './NewMessage';
+import { listByUser } from '../post/apiPost';
 
 class Profile extends Component {
     constructor() {
@@ -15,6 +16,7 @@ class Profile extends Component {
             user: { following: [], followers: [] },
             redirectToSignin: false,
             following: false,
+            followers: false,
             error: "",
             posts: []
         };
@@ -26,6 +28,14 @@ class Profile extends Component {
         const jwt = isAuthenticated();
         const match = user.followers.find(follower => {
             return follower._id === jwt.user._id
+        })
+        return match;
+    };
+
+    checkFollowers = user => {
+        const jwt = isAuthenticated();
+        const match = user.following.find(following => {
+            return following._id === jwt.user._id
         })
         return match;
     };
@@ -52,7 +62,9 @@ class Profile extends Component {
                         this.setState({ redirectToSignin: true });
                     } else {
                         let following = this.checkFollow(data);
+                        let followers = this.checkFollowers(data);
                         this.setState({ user: data, following });
+                        this.setState({ user: data, followers });
                         this.loadPosts(data._id);
                     }
                 });
@@ -69,6 +81,12 @@ class Profile extends Component {
                 }
             })
     }
+
+    createMessage = () => (
+        <div className="d-inline-block">
+            <NewMessage />
+        </div>
+    )
 
     componentDidMount() {
         const userId = this.props.match.params.userId;
@@ -120,10 +138,27 @@ class Profile extends Component {
                                 <DeleteUser userId={user._id}/>
                             </div>
                         ) : (
-                            <FollowProfileButton 
-                                following={this.state.following}
-                                onButtonClick={this.clickFollowButton}
-                            />
+                            <div className="d-inline-block">
+                                <FollowProfileButton 
+                                    following={this.state.following}
+                                    onButtonClick={this.clickFollowButton}
+                                />
+
+                                {this.state.followers && isAuthenticated().user._id !== user._id ? (
+                                        <div className="d-inline-block">
+                                            <button className="btn btn-success btn-raised ml-5" disabled>
+                                                Chat
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="d-inline-block">
+                                            <button className="btn btn-info btn-raised ml-5" onClick={this.followingRequest} disabled>
+                                                Send mail to ask follow
+                                            </button>
+                                        </div>
+                                )}
+                            </div>
+                            
                         )}
                         <div>
                             {isAuthenticated().user &&
@@ -160,8 +195,48 @@ class Profile extends Component {
                             following={user.following}
                             posts={posts}
                         />
+                        
                     </div>
+                    
                 </div>
+                <hr/>
+                <div>
+                    <h2>Message</h2>
+                </div>
+                <hr/>
+                {this.state.followers && this.state.following || isAuthenticated().user._id === user._id ? (
+                            <div>
+                                {/*
+                                    <div className="d-inline-block">
+                                    <button 
+                                        href={`/user/${user._id}#new-message`}
+                                        className="btn btn-raised btn-info btn-sm">
+                                            New Message
+                                    </button>
+    
+                                    {
+                                        this.state.followers && (
+                                            <Link className="btn btn-raised btn-success btn-sm ml-5" to={`/user/edit/${user._id}`}>
+                                                    Chat
+                                            </Link>
+                                        )
+                                    }
+                                
+                                
+                                    </div>
+                                */}
+                                <hr/>
+                                <NewMessage />
+                                
+                            </div>
+                        ) : (
+                            <div className="d-inline-block">
+                                <div className="alert alert-info">
+                                    <p>You must follow and been folowed by {user.name} to access on this part..</p>
+                                </div>
+                            </div>
+                            
+                    )}
             </div>
         )
     };

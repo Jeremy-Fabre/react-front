@@ -8,6 +8,7 @@ import Profile from './user/Profile';
 import Users from './user/Users';
 import EditProfile from './user/EditProfile';
 import FindPeople from './user/FindPeople';
+import MyFollowing from './user/MyFollowing';
 import NewPost from './post/NewPost';
 import EditPost from './post/EditPost';
 import SinglePost from './post/SinglePost';
@@ -32,6 +33,7 @@ const MainRouter = () => (
             <Route exact path="/signin" component={Signin}/>
             <PrivateRoute exact path="/user/edit/:userId" component={EditProfile}/>
             <PrivateRoute exact path="/findpeople" component={FindPeople}/>
+            <PrivateRoute exact path="/myfollowing" component={MyFollowing}/>
             <PrivateRoute exact path="/user/:userId" component={Profile}/>
             <PrivateRoute exact path="/admin" component={Admin} />
         </Switch>
