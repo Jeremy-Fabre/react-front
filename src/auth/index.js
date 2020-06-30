@@ -77,7 +77,7 @@ export const forgotPassword = email => {
  
 export const resetPassword = resetInfo => {
     return fetch(`${process.env.REACT_APP_API_URL}/reset-password/`, {
-        method: "POST",
+        method: "PUT",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
